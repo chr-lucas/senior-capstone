@@ -28,8 +28,8 @@ Suggested IDE: [Visual Studio Code](https://code.visualstudio.com/) or [Visual S
 - Clone the repository:
    ```bash
    git clone https://github.com/bradleypeterson/2420-workbook.git
-- See [README_ServerStartup](https://github.com/bradleypeterson/2420-workbook/blob/main/README_ServerStartup.md) for instructions on running the project server.
-- See [README_LocalStartup](https://github.com/bradleypeterson/2420-workbook/blob/main/README_LocalStartup.md) for instructions on running the project on your local machine.
+- See [README_ServerStartup](https://github.com/chr-lucas/senior-capstone/blob/main/README_ServerStartup.md) for instructions on running the project server.
+- See [README_LocalStartup](https://github.com/chr-lucas/senior-capstone/blob/main/README_LocalStartup.md) for instructions on running the project on your local machine.
 
 ## Contributing
 If you would like to contribute to **Nebula Workbook**, choose this as your preferred project for CS4760.
