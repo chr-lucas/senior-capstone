@@ -1,0 +1,690 @@
+/* --- Color Variables --- */
+:root {
+    /* Light theme colors */
+    --text-light: #030b1c;
+    --background-light: #edf2fd;
+    --primary-light: #889FDD;
+    --primary-light-hover: #889FDD;
+    --secondary-light: #efab7b;
+    --accent-light: #b2eb56;
+    --danger-light: #FB6E4B;
+    --subtle-light: #A8A8A8;
+    --th-light: #505050;
+    /* Dark theme colors */
+    --text-dark: #e3ebfc;
+    --background-dark: #020712;
+    --primary-dark: #2A4693;
+    --primary-dark-hover: #2A4693;
+    --secondary-dark: #71380F;
+    --accent-dark: #39550C;
+    --danger-dark: #9A2204;
+    --subtle-dark: #474747;
+    --th-dark: #C0C0C0;
+}
+
+/* Light Theme color assignments */
+[data-theme="light"] {
+    --text: var(--text-light);
+    --text-inverse: var(--text-dark);
+    --background: var(--background-light);
+    --background-inverse: var(--background-dark);
+    --primary: var(--primary-light);
+    --primary-hover: var(--primary-light-hover);
+    --secondary: var(--secondary-light);
+    --accent: var(--accent-light);
+    --danger: var(--danger-light);
+    --subtle: var(--subtle-light);
+    --th: var(--th-light);
+    /* Color text variables are inverse for contrast */
+    --primary-text: var(--primary-dark);
+    --secondary-text: var(--secondary-dark);
+    --accent-text: var(--accent-dark);
+    --danger-text: var(--danger-dark);
+    --subtle-text: var(--subtle-dark);
+}
+
+/* Dark Theme color assignments */
+[data-theme="dark"] {
+    --text: var(--text-dark);
+    --text-inverse: var(--text-light);
+    --background: var(--background-dark);
+    --background-inverse: var(--background-light);
+    --primary: var(--primary-dark);
+    --primary-hover: var(--primary-dark-hover);
+    --secondary: var(--secondary-dark);
+    --accent: var(--accent-dark);
+    --danger: var(--danger-dark);
+    --subtle: var(--subtle-dark);
+    --th: var(--th-dark);
+    /* Color text variables are inverse for contrast */
+    --primary-text: var(--primary-light);
+    --secondary-text: var(--secondary-light);
+    --accent-text: var(--accent-light);
+    --danger-text: var(--danger-light);
+    --subtle-text: var(--subtle-light);
+}
+
+/* --- General Styles --- */
+html {
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.btn {
+    border-radius: 15px;
+    border-spacing: 0;
+    border-collapse: separate;
+    border: var(--border);
+    overflow: hidden;
+}
+    .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+        box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    }
+
+main {
+    padding-top: 60px;
+}
+
+body {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background-color: var(--background);
+    color: var(--text);
+    margin-top: 20px;
+    margin-bottom: 60px;
+}
+
+ul {
+    margin-bottom: 1rem; /* match line spacing to a p tag */
+}
+
+    ul + h1, ul + h2, ul + h3, ul + h4, ul + h5, ul + h6 {
+        margin-top: 1.5rem; /* Adjust spacing between <ul> and next heading */
+    }
+
+h1, h2, h3, h4, h5, h6 { /* Baseline header font weight for readability */
+    font-weight: bold;
+}
+
+/* --- Text Styles --- */
+/*
+    These colors will force text to colorful variants rather than the standard
+    high contrast black or white. Use only on dark or light backgrounds.
+*/
+.text-primary {
+    color: var(--primary-text);
+}
+
+.text-secondary {
+    color: var(--secondary-text);
+}
+
+.text-accent {
+    color: var(--accent-text);
+}
+
+.text-danger {
+    color: var(--danger-text);
+}
+
+.text-subtle {
+    color: var(--suble-text);
+}
+
+/* --- Form Styles --- */
+.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
+    color: var(--bs-secondary-color);
+    text-align: end;
+}
+
+.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
+    text-align: start;
+}
+
+/* --- Custom Button Styling --- */
+[data-theme="light"] .btn-primary {
+    background-color: var(--primary-light);
+    border-color: var(--primary-light);
+    color: var(--text-light);
+}
+
+    [data-theme="light"] .btn-primary:hover {
+        background-color: var(--primary-light-hover);
+        border-color: var(--primary-light-hover);
+        color: var(--text-light);
+    }
+
+[data-theme="dark"] .btn-primary {
+    background-color: var(--primary-dark);
+    border-color: var(--primary-dark);
+    color: var(--text-dark);
+}
+
+    [data-theme="dark"] .btn-primary:hover {
+        background-color: var(--primary-dark-hover);
+        border-color: var(--primary-dark-hover);
+        color: var(--text-dark);
+    }
+
+[data-theme="light"] .btn-secondary {
+    background-color: var(--secondary-light);
+    border-color: var(--secondary-light);
+    color: var(--text-light);
+}
+
+    [data-theme="light"] .btn-secondary:hover {
+        background-color: var(--secondary-light-hover);
+        border-color: var(--secondary-light-hover);
+        color: var(--text-light);
+    }
+
+[data-theme="dark"] .btn-secondary {
+    background-color: var(--secondary-dark);
+    border-color: var(--secondary-dark);
+    color: var(--text-dark);
+}
+
+    [data-theme="dark"] .btn-secondary:hover {
+        background-color: var(--secondary-dark-hover);
+        border-color: var(--secondary-dark-hover);
+        color: var(--text-dark);
+    }
+
+[data-theme="light"] .btn-accent {
+    background-color: var(--accent-light);
+    border-color: var(--accent-light);
+    color: var(--text-light);
+}
+
+    [data-theme="light"] .btn-accent:hover {
+        background-color: var(--accent-light-hover);
+        border-color: var(--accent-light-hover);
+        color: var(--text-light);
+    }
+
+[data-theme="dark"] .btn-accent {
+    background-color: var(--accent-dark);
+    border-color: var(--accent-dark);
+    color: var(--text-dark);
+}
+
+    [data-theme="dark"] .btn-accent:hover {
+        background-color: var(--accent-dark-hover);
+        border-color: var(--accent-dark-hover);
+        color: var(--text-dark);
+    }
+
+/* --- Header Styling --- */
+/*
+    The header isn't visible by default. Taken up in full by Navbar.
+*/
+.header {
+    background-color: var(--primary-dark);
+}
+
+/* --- Navbar elements --- */
+.navbar {
+    background-color: var(--primary-dark); /* Navbar ignores Theme palette swaps */
+    position: fixed;
+    top: 0;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+    .navbar-logo img { /*Top left project logo*/
+        height: 40px;
+        margin-right: 15px;
+    }
+
+    .navbar-title {
+        color: white !important;
+        font-size: larger;
+        margin-right: 80px;
+    }
+
+    /* --- Navigation Buttons --- */
+    .custom-nav-btn { /*Styling for navbar link buttons*/
+        background-color: #EBE3F2;
+        color: #222 !important;
+        -webkit-text-decoration: none;
+        text-decoration: none;
+        border-radius: 15px;
+        padding: 8px 20px;
+        font-weight: bolder;
+        border: none;
+        transition: background-color 0.3s ease;
+    }
+
+        .custom-nav-btn:hover {
+            background-color: #f5d890;
+            color: #222 !important;
+        }
+
+    /* Profile Picture */
+    .profile-picture { /* Currently just a placeholder image. Nonfunctional. */
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: 15px;
+        background-color: #ddd;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+        .profile-picture i {
+            font-size: 20px;
+            color: var(--bs-gray-700);
+        }
+
+    /* Dark mode adjustments */
+    [data-theme="light"] .profile-picture i {
+        color: var(--bs-gray-800);
+    }
+
+    [data-theme="light"] .profile-picture {
+        background-color: var(--bs-gray-400);
+    }
+
+    /* Dark mode adjustments */
+    [data-theme="dark"] .profile-picture i {
+        color: var(--bs-gray-400);
+    }
+
+    [data-theme="dark"] .profile-picture {
+        background-color: var(--bs-gray-800);
+    }
+
+    /* --- Theme Toggle Styling --- */
+    .theme-toggle {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        background: none;
+        border: none;
+    }
+
+    .theme-slider { /* This is a slider, but functions like a toggle. The slider is the same size as the display. */
+        position: relative;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: #ddd;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.3s ease;
+    }
+
+        .theme-slider i {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1; /* Force icons ABOVE the slider */
+            transition: opacity 0.3s ease, color 0.3s ease;
+        }
+
+        /* Light Theme version of the slider */
+        #theme-sun {
+            color: black;
+            opacity: 1; /* Sun icon visible */
+        }
+
+        #theme-moon {
+            opacity: 0; /* Sun icon not visible */
+        }
+
+    /* Dark mode version of the slider */
+    .theme-slider.active {
+        background-color: #333;
+    }
+
+        .theme-slider.active #theme-sun {
+            opacity: 0; /* Moon icon not visible */
+        }
+
+        .theme-slider.active #theme-moon {
+            color: white;
+            opacity: 1; /* Moon icon visible */
+        }
+
+
+/* --- Footer Styling --- */
+.footer {
+    background-color: var(--primary-dark); /* Footer background ignores Theme palette swaps */
+    color: var(--text);
+    padding: 10px 20px;
+}
+
+.footer-logo {
+    height: 40px;
+}
+
+.footer-links { /* Links on the right */
+    display: flex;
+    gap: 15px;
+}
+
+.footer-link {
+    color: var(--text-dark);
+    text-decoration: none;
+    font-weight: normal;
+}
+
+    .footer-link:hover { /* Hover effect */
+        text-decoration: underline;
+    }
+
+/* --- Image Styling --- */
+.title-card-image { /* For images at the start of a chapter */
+    width: 100%;
+    height: auto;
+}
+
+/* --- Section Stylying --- */
+/*
+    These classes are used to separate sections of content and provide visual
+    continuity between chapters. See HTML markup of Chapter Demo for usage.
+*/
+.lecture-text { /* Normal full width lecture text */
+    /* currently empty. reserved for future needs. */
+}
+
+.info-callout { /* Info blocks of important text */
+    font-size: 18px;
+    background-color: var(--primary);
+    color: var(--text) !important;
+    border-radius: 15px;
+    padding: 20px;
+}
+
+.definition-callout { /* Info blocks of key term definitions */
+    font-size: 18px;
+    background-color: var(--accent);
+    color: var(--text) !important;
+    border-radius: 15px;
+    padding: 20px;
+}
+
+.warning-callout { /* Info blocks of cuationary information */
+    font-size: 18px;
+    background-color: var(--secondary);
+    color: var(--text) !important;
+    border-radius: 15px;
+    padding: 20px;
+}
+
+.danger-callout { /* Info blocks of cuationary information */
+    font-size: 18px;
+    background-color: var(--danger);
+    color: var(--text) !important;
+    border-radius: 15px;
+    padding: 20px;
+}
+
+.subtle-callout { /* Used to separate sections and provide visual guidance */
+    font-size: 18px;
+    background-color: var(--subtle);
+    color: var(--text) !important;
+    border-radius: 15px;
+    padding: 20px;
+}
+
+.progress { /* Ensures progress bars have a background different from the main body */
+    background-color: var(--background-inverse);
+    border-radius: 7px;
+}
+
+/* --- Quiz Styling --- */
+/*
+    Quiz content is intended to be imported into Chapter views, but
+    had not been fully developed as an import module by end of semester.
+    These styles will need to be addressed in the future as this functionality
+    is implemented.
+*/
+.quiz-score-text {
+    color: var(--text);
+    height: 20px;
+    font-size: xx-large;
+}
+
+.quiz-correct-answer {
+    color: var(--accent)
+}
+
+.quiz-block {
+    --border: 1px solid black;
+    border-radius: 15px;
+    border-spacing: 0;
+    border-collapse: separate;
+    border: var(--border);
+    overflow: hidden;
+}
+
+table.quiz-block th:not(:last-child),
+table.quiz-block td:not(:last-child) {
+    border-right: var(--border);
+}
+
+table.quiz-block > thead > tr:not(:last-child) > th,
+table.quiz-block > thead > tr:not(:last-child) > td,
+table.quiz-block > tbody > tr:not(:last-child) > th,
+table.quiz-block > tbody > tr:not(:last-child) > td,
+table.quiz-block > tfoot > tr:not(:last-child) > th,
+table.quiz-block > tfoot > tr:not(:last-child) > td,
+table.quiz-block > tr:not(:last-child) > td,
+table.quiz-block > tr:not(:last-child) > th,
+table.quiz-block > thead:not(:last-child),
+table.quiz-block > tbody:not(:last-child),
+table.quiz-block > tfoot:not(:last-child) {
+    border-bottom: var(--border);
+}
+
+table.quiz-block th {
+    background: var(--th);
+    color: var(--text-inverse);
+}
+
+.correct-answer-label {
+    display: none;
+    color: green;
+    font-weight: bold;
+    float: right;
+}
+
+.show-answer .correct-answer-label {
+    display: inline;
+}
+
+
+/* --- Modal Styling --- */
+/*
+    Currently only used as a modal for quiz results.
+    If additional modals are needed, these classes should be renamed for clarity.
+*/
+.modal-content {
+    background-color: var(--background);
+    color: var(--text);
+    padding: 0px;
+    border: 1px solid var(--th);
+    text-align: center;
+}
+
+.modal-header {
+    border-bottom: 1px solid var(--th);
+    background-color: var(--primary);
+    color: var(--text-inverse);
+}
+
+.modal-body {
+    background-color: var(--background);
+    color: var(--text);
+    font-size: 2rem;
+}
+
+.modal-footer {
+    background-color: var(--background);
+}
+
+.modal-content button {
+    background-color: var(--primary);
+    color: var(--text-inverse);
+    border: none;
+    border-radius: 15px;
+}
+
+    .modal-content button:hover {
+        background-color: var(--primary-dark);
+    }
+
+    [data-theme="dark"] .modal-content {
+        background-color: var(--background-dark);
+        color: var(--text-dark);
+    }
+
+    [data-theme="dark"] .modal-header {
+        background-color: var(--primary-dark);
+        color: var(--text);
+    }
+
+    [data-theme="dark"] .modal-body {
+        background-color: var(--background-dark);
+        color: var(--text-dark);
+        font-size: 2rem;
+    }
+
+    [data-theme="dark"] .modal-footer {
+        background-color: var(--background-dark);
+    }
+
+    [data-theme="dark"] .modal-content button {
+        background-color: var(--primary-dark);
+        color: var(--text-dark);
+    }
+
+/* --- Ace Editor Styling --- */
+/*
+    All style rules for the embedded C++ IDE.
+    This package is imported as a whole, so make sure any changes
+    are tested in a full embed of the editor.
+*/
+.cpp-ide-container {
+    margin: 1rem auto;
+    padding: 1rem;
+    max-width: 1000px;
+}
+
+.ace-editor {
+    height: 400px;
+    border-radius: 8px;
+    border: 1px solid #444;
+    resize: both;
+    overflow: auto;
+    min-height: 200px;
+    min-width: 300px;
+    max-width: 80vw;
+}
+
+.ide-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Push left and right sections apart */
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    gap: 1rem;
+}
+
+.left-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.compiler-selector,
+.wandbox-compiler-selector {
+    padding: 0.2rem 0.3rem;
+    font-size: 1rem;
+}
+
+.font-size-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+    .font-size-controls .btn {
+        padding: 4px 12px;
+        background-color: #5b76f7; /* Soft blue */
+        color: #ffffff;
+        border: 1px solid #4a63cc;
+        border-radius: 4px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s, border-color 0.3s;
+    }
+
+
+        .font-size-controls .btn:hover {
+            background-color: #4a63cc; /* Darker blue on hover */
+            border-color: #3a4fa3;
+        }
+
+.run-code-btn {
+    padding: 0.4rem 1rem;
+    background-color: #28a745;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    transition: background 0.2s ease-in-out;
+}
+
+    .run-code-btn:hover {
+        background-color: #218838;
+    }
+
+.output-container {
+    background-color: #1e1e1e;
+    color: #f8f8f2;
+    padding: 1rem;
+    border-radius: 8px;
+    font-family: monospace;
+    font-size: 0.95rem;
+    min-height: 100px;
+    max-height: 300px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    border: 1px solid #333;
+    margin-top: 1rem;
+}
+
+.spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 3px solid #d4d4d4;
+    border-top: 3px solid #28a745;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin-right: 0.5rem;
+    vertical-align: middle;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

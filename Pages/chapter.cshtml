@@ -1,0 +1,935 @@
+@page
+@model NebulaTextbook.Pages.chapterModel
+
+
+
+@{
+    ViewData["Title"] = "chapter";
+
+
+
+
+    int problemNum = 0;
+    int groupNum = 0;
+    string Message = "";
+
+
+    //Quadratic Probing Code
+    string initialCode = @"#include <bits/stdc++.h>
+    using namespace std;
+
+        // Function to print an array
+        void printArray(int arr[], int n)
+        {
+
+            for (int i = 0; i <n; i++) {
+                std::cout << ""Index "" << i << "": "" << arr[i] << std::endl;
+            }
+           
+        }
+
+        int nextPowerOf2(int m)
+        {
+            m--;
+            m |= m >> 1;
+            m |= m >> 2;
+            m |= m >> 4;
+            m |= m >> 8;
+            m |= m >> 16;
+            m |= m >> 32;
+            m++;
+            return m;
+        }
+
+        // Function to implement the
+        // quadratic probing
+        void hashing(int table[], int tsize, int arr[], int n)
+        {
+            // Iterating through the array
+            for (int i = 0; i < n; i++) {
+
+                // Computing the hash value
+                int hv = arr[i] % tsize;
+
+                // Insert in the table if there
+                // is no collision
+                if (table[hv] == -1)
+                    table[hv] = arr[i];
+                else {
+
+            // If there is a collision
+            // iterating through all
+            // possible quadratic values
+            int m = nextPowerOf2(tsize);
+            for (int j = 1; j <= m; j++) {
+
+                // Computing the new hash value
+                int t = (hv + (j + j * j) / 2) % m;
+                if (table[t] == -1) {
+                    // Break the loop after
+                    // inserting the value
+                    // in the table
+                    table[t] = arr[i];
+                    break;
+                }
+
+                if (t >= tsize)
+                    continue;
+            }
+        }
+    }
+    printArray(table, tsize);
+}
+
+// Driver code
+int main()
+{
+    int arr[] = { 11, 20, 16, 3, 53, 99, 28 };
+    int n = 7;
+
+    // Size of the hash table
+    int tsize = 11;
+    int hash_table[tsize];
+
+    // Initializing the hash table
+    for (int i = 0; i < tsize; i++) {
+        hash_table[i] = -1;
+    }
+
+    // Function call
+    hashing(hash_table, tsize, arr, n);
+    return 0;
+    }
+
+ ";
+
+//Linear Probing from AI
+    string initialCode2 = @"#include <iostream>
+#include <vector>
+
+class HashTable {
+private:
+    std::vector<int> table;
+    int capacity;
+    int size;
+
+    // Hash function
+    int hash(int key) {
+        return key % capacity;
+    }
+
+public:
+    // Constructor
+    HashTable(int capacity) : capacity(capacity), size(0) {
+        table.resize(capacity, -1); // Initialize all slots to -1 (empty)
+    }
+
+    // Insert a key-value pair
+    void insert(int key) {
+        if (size == capacity) {
+            std::cout << ""Hash table is full. Cannot insert."" << std::endl;
+            return;
+        }
+
+        int index = hash(key);
+
+        // Linear probing to find an empty slot
+        while (table[index] != -1) {
+            index = (index + 1) % capacity; // Move to the next slot, wrap around if needed
+        }
+
+        table[index] = key;
+        size++;
+    }
+
+    // Search for a key
+    bool search(int key) {
+        int index = hash(key);
+        int initial_index = index;
+
+        // Linear probing to find the key
+        while (table[index] != -1) {
+            if (table[index] == key) {
+                return true; // Key found
+            }
+            index = (index + 1) % capacity;
+            if (index == initial_index)
+                break; //Avoid infinite loop in case the element is not in the table
+        }
+        return false; // Key not found
+    }
+
+    // Display the hash table
+    void display() {
+        for (int i = 0; i < capacity; i++) {
+            std::cout << ""Index "" << i << "": "" << table[i] << std::endl;
+        }
+    }
+};
+
+int main() {
+    HashTable ht(10);
+
+    ht.insert(5);
+    ht.insert(25);
+    ht.insert(15);
+    ht.insert(35);
+    ht.insert(45);
+
+    std::cout << ""Hash Table:"" << std::endl;
+    ht.display();
+
+   
+    return 0;
+}";
+
+//Linear Probling Search FROM AI
+    string initialCode3 = @"#include <iostream>
+#include <vector>
+
+class HashTable {
+private:
+    std::vector<int> table;
+    int capacity;
+    int size;
+
+    // Hash function
+    int hash(int key) {
+        return key % capacity;
+    }
+
+public:
+    // Constructor
+    HashTable(int capacity) : capacity(capacity), size(0) {
+        table.resize(capacity, -1); // Initialize all slots to -1 (empty)
+    }
+
+    // Insert a key-value pair
+    void insert(int key) {
+        if (size == capacity) {
+            std::cout << ""Hash table is full. Cannot insert."" << std::endl;
+            return;
+        }
+
+        int index = hash(key);
+
+        // Linear probing to find an empty slot
+        while (table[index] != -1) {
+            index = (index + 1) % capacity; // Move to the next slot, wrap around if needed
+        }
+
+        table[index] = key;
+        size++;
+    }
+
+    // Search for a key
+    bool search(int key) {
+        int index = hash(key);
+        int initial_index = index;
+
+        // Linear probing to find the key
+        while (table[index] != -1) {
+            if (table[index] == key) {
+                return true; // Key found
+            }
+            index = (index + 1) % capacity;
+            if (index == initial_index)
+                break; //Avoid infinite loop in case the element is not in the table
+        }
+        return false; // Key not found
+    }
+
+    // Display the hash table
+    void display() {
+        for (int i = 0; i < capacity; i++) {
+            std::cout << ""Index "" << i << "": "" << table[i] << std::endl;
+        }
+    }
+};
+
+int main() {
+    HashTable ht(10);
+
+    ht.insert(5);
+    ht.insert(25);
+    ht.insert(15);
+    ht.insert(35);
+    ht.insert(45);
+
+    std::cout << ""Hash Table:"" << std::endl;
+    ht.display();
+
+    std::cout << ""Search 25: "" << (ht.search(25) ? ""Found"" : ""Not Found"") << std::endl;
+    std::cout << ""Search 50: "" << (ht.search(50) ? ""Found"" : ""Not Found"") << std::endl;
+
+    return 0;
+}";
+
+//Linear Probling from GeeksForGeeks
+    string initialCode4 = @"#include <bits/stdc++.h>
+using namespace std;
+
+// template for generic type
+template <typename K, typename V>
+
+// Hashnode class
+class HashNode {
+public:
+    V value;
+    K key;
+
+    // Constructor of hashnode
+    HashNode(K key, V value)
+    {
+        this->value = value;
+        this->key = key;
+    }
+};
+
+// template for generic type
+template <typename K, typename V>
+
+// Our own Hashmap class
+class HashMap {
+    // hash element array
+    HashNode<K, V>** arr;
+    int capacity;
+    // current size
+    int size;
+    // dummy node
+    HashNode<K, V>* dummy;
+
+public:
+    HashMap()
+    {
+        // Initial capacity of hash array
+        capacity = 20;
+        size = 0;
+        arr = new HashNode<K, V>*[capacity];
+
+        // Initialise all elements of array as NULL
+        for (int i = 0; i < capacity; i++)
+            arr[i] = NULL;
+
+        // dummy node with value and key -1
+        dummy = new HashNode<K, V>(-1, -1);
+    }
+    // This implements hash function to find index
+    // for a key
+    int hashCode(K key) { return key % capacity; }
+
+    // Function to add key value pair
+    void insertNode(K key, V value)
+    {
+        HashNode<K, V>* temp
+            = new HashNode<K, V>(key, value);
+
+        // Apply hash function to find index for given key
+        int hashIndex = hashCode(key);
+
+        // find next free space
+        while (arr[hashIndex] != NULL
+               && arr[hashIndex]->key != key
+               && arr[hashIndex]->key != -1) {
+            hashIndex++;
+            hashIndex %= capacity;
+        }
+
+        // if new node to be inserted
+        // increase the current size
+        if (arr[hashIndex] == NULL
+            || arr[hashIndex]->key == -1)
+            size++;
+        arr[hashIndex] = temp;
+    }
+
+    // Function to delete a key value pair
+    V deleteNode(int key)
+    {
+        // Apply hash function
+        // to find index for given key
+        int hashIndex = hashCode(key);
+
+        // finding the node with given key
+        while (arr[hashIndex] != NULL) {
+            // if node found
+            if (arr[hashIndex]->key == key) {
+                HashNode<K, V>* temp = arr[hashIndex];
+
+                // Insert dummy node here for further use
+                arr[hashIndex] = dummy;
+
+                // Reduce size
+                size--;
+                return temp->value;
+            }
+            hashIndex++;
+            hashIndex %= capacity;
+        }
+
+        // If not found return null
+        return NULL;
+    }
+
+    // Function to search the value for a given key
+    V get(int key)
+    {
+        // Apply hash function to find index for given key
+        int hashIndex = hashCode(key);
+        int counter = 0;
+
+        // finding the node with given key
+        while (arr[hashIndex]
+               != NULL) { // int counter =0; // BUG!
+
+            if (counter++
+                > capacity) // to avoid infinite loop
+                return NULL;
+
+            // if node found return its value
+            if (arr[hashIndex]->key == key)
+                return arr[hashIndex]->value;
+            hashIndex++;
+            hashIndex %= capacity;
+        }
+
+        // If not found return null
+        return NULL;
+    }
+
+    // Return current size
+    int sizeofMap() { return size; }
+
+    // Return true if size is 0
+    bool isEmpty() { return size == 0; }
+
+    // Function to display the stored key value pairs
+    void display()
+    {
+        for (int i = 0; i < capacity; i++) {
+            if (arr[i] != NULL && arr[i]->key != -1)
+                cout << ""key = "" << arr[i]->key
+                     << ""  value = "" << arr[i]->value
+                     << endl;
+        }
+    }
+};
+
+// Driver method to test map class
+int main()
+{
+    HashMap<int, int>* h = new HashMap<int, int>;
+    h->insertNode(1, 1);
+    h->insertNode(2, 2);
+    h->insertNode(2, 3);
+    h->display();
+    cout << h->sizeofMap() << endl;
+    cout << h->deleteNode(2) << endl;
+    cout << h->sizeofMap() << endl;
+    cout << h->isEmpty() << endl;
+    cout << h->get(2);
+
+    return 0;
+}
+ ";
+
+
+//DoubleHashing from AI
+    string initialCode5 = @"#include <iostream>
+#include <vector>
+
+class DoubleHash {
+public:
+    DoubleHash(int tableSize) : tableSize(tableSize), hashTable(tableSize, -1) {}
+
+    int hash1(int key) {
+        return key % tableSize;
+    }
+
+    int hash2(int key) {
+        return 7 - (key % 7); 
+    }
+
+    void insert(int key) {
+        int index = hash1(key);
+
+        if (hashTable[index] != -1) {
+            int i = 1;
+            int newIndex;
+            do {
+                newIndex = (index + i * hash2(key)) % tableSize;
+                if (hashTable[newIndex] == -1) {
+                    hashTable[newIndex] = key;
+                    return;
+                }
+                i++;
+            } while (i < tableSize);
+            std::cout << ""Cannot insert "" << key << std::endl;
+        } else {
+            hashTable[index] = key;
+        }
+    }
+
+    void printHashTable() {
+        for (int i = 0; i < tableSize; i++) {
+            if (hashTable[i] != -1) {
+                std::cout << ""Index "" << i << "": "" << hashTable[i] << std::endl;
+            } else {
+                std::cout << ""Index "" << i << "": Empty"" << std::endl;
+            }
+        }
+    }
+
+private:
+    int tableSize;
+    std::vector<int> hashTable;
+};
+
+int main() {
+    DoubleHash dh(10);
+    dh.insert(12);
+    dh.insert(25);
+    dh.insert(35);
+    dh.insert(26);
+    dh.insert(82);
+    dh.insert(98);
+    dh.insert(48);
+    dh.insert(58);
+    dh.insert(68);
+    dh.insert(78);
+    dh.printHashTable();
+    return 0;
+}";
+
+}
+<img src="~/images/chapter_title_example.png" alt="and example of md5 hash encoding" class="title-card-image mt-2" />
+<h1 class="chapter-title text-primary-dark mt-5 mb-4">Hashing: Part 2</h1>
+
+<div class="chapter-section">
+    <h4 class="section-title">Lesson Overview</h4>
+    <p>This lesson builds on basic hashing by introducing open addressing techniques for resolving collisions, along with their performance implications.</p>
+</div>
+<div>
+    <h5>
+        Learning Objectives
+    </h5>
+    <p>
+        By the end of this section, you'll be able to:
+    </p>
+    <ol>
+        <li>Understand the concept and implementation of open addressing for collision resolution</li>
+        <li>Compare and contrast linear probing, quadratic probing, and double hashing</li>
+        <li>Understand and calculate load factor and its impact on performance</li>
+        <li>Apply probing methods to resolve collisions and insert elements into hash tables</li>
+    </ol>
+
+    <hr />
+</div>
+
+<div class="container py-md-4">
+    <div class="chapter-section">
+        <h4 class="section-title">First, A Brief Review of Hash Tables</h4>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="info-callout my-2">
+                <div class="rounded p-3 h-100 align-middle" style="background: white;">
+                    <h6 class="text-primary">Hash Tables</h6>
+                    <ul class="text-primary">
+                        <li>Provides O(1) core Dictionary operations (<strong>on average</strong>)</li>
+                        <li>We call the key space the "universe": U and the Hash Table: T</li>
+                        <li>We should use this data structure <strong>only</strong> when we expect |U| >> |T|</li>
+                        <li>(or, the key space is non-integer values.)</li>
+                    </ul>
+                    <br />
+                    <br />
+                    <img src="~/images/hash_table/ht_image_01.png" alt="an illustration of hash table Index generation" class="img-fluid rounded" />
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <p class="my-2">
+                A Hash Table uses key-value pairs to enable fast lookups, insertions, and deletion of data. By using a designated
+                algorithm (the <strong>hash function</strong>) to determine a unique storage location based on the input key. The output from the hash
+                function generates an index value, assigning a "bucket" to store the data. Since this function will always allow for a quick calculation
+                to check the assigned bucket of any given value, a Hash Table is an efficient way of storing and retreiving data.
+            </p>
+            <p>
+                As data is added to the hash table, the number of available buckets decreases. With less buckets available, the performance of the hash table
+                will decrease. This is because the hash function will have to do more work to find an available bucket. The more data you add, the more resources
+                are needed for the hash function to find an available bucket. This is called the <strong>load factor or λ</strong> of the hash table. The load
+                factor is a measure of how full the table is in comparison to the total size of the table.
+            </p>
+        </div>
+    </div>
+    <div class="row my-5">
+        <div class="col-md-1"></div>
+        <div class="container col-md-10">
+            <h5><code>λ = num_items / table_size</code></h5>
+            <div class="progress my-3" style="height: 25px;">
+                <div class="progress-bar" style="width: 40%;  background-color: var(--primary); color: var(--text);">40% Load Factor</div>
+            </div>
+            <div class="progress my-3" style="height: 25px;">
+                <div class="progress-bar" style="width: 85%;  background-color: var(--danger); color: var(--text);">85% Load Factor</div>
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+    <div class="row">
+        <p>
+            When is λ too high? At what point does the performance of the hash table become unacceptable? This is a difficult question to answer, and depends on
+            the requirements of the hash table. A good rule of thumb is to keep λ below 0.7. This means that the hash table is only 70% full, and 30% of the
+            buckets available for new data. When this threshold is reached, the hash table is reaching a point of diminishing performance outside of the intended
+            design. We'll discus what can be done to fix the situation in moment.
+        </p>
+    </div>
+    <div class="row">
+        <p>
+            For now, consider the outcome of having so few buckets available. When the hash function processes new data, there is an increasingly high chance that
+            the output index will already be occupied. Two different values can't be stored in the same bucket, or else the storage and retrieval function of our
+            storage and retrieval system can no longer be relied upon.
+        </p>
+    </div>
+</div>
+
+<div class="container py-md-4">
+    <div class="chapter-section">
+        <h4 class="section-title">Collisions</h4>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            <p>
+                Hash functions can not reasonably be expected to be perfect. In fact, they are designed to be <strong>fast</strong> and <strong>efficient</strong>,
+                not perfect. This means that there will be times when two different input values generate the same output value. This is called a
+                <strong>collision</strong>, and is an important consideration when working with hash tables. For the hash table to work correctly, two values
+                can not be stored in the same bucket.
+            </p>
+            <p>
+                Suppose you have a hash function F. This function takes an input value and maps it onto an output value. The different possible values
+                that can be generated as output is the <strong>RANGE</strong> of the function F. So, what happens when the number of data points you're trying
+                to map becomes larger than the range of your hash function? The function can't produce an output outside of its range, so instead, two
+                different points of data generate the same output and a collision occurs. This creates a problem. The hash function can't change its formula for
+                one data point as an exception, and we can't store two different data points at the same key.Instead we'll need to design our hash table with a
+                specific rule on how to handle such collisions.
+            </p>
+        </div>
+        <div class="col-md-4">
+            <div class="definition-callout">
+                <h5>Definition: Hash Collision</h5>
+                <p>
+                    A Hash Collision is when two distinct pieces of data in a hash table share the same hash value. This occurs when the hash function processes
+                    different input values but returns the same output value. Any collisions must be solved for to ensure the hash table works as intended.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <p>
+            These elements make up the design considerations of a hash table. The table needs a hash function to handle index lookup. We must also decide on the table's
+            size (number of buckets) and our maximum load factor. This helps determine resource allocation and acceptable performance levels. Finally, the table must
+            have a deterministic procedure for collision resolution and data removal.
+        </p>
+    </div>
+    <div class="row py-3">
+        <div class="col-md-12">
+            <figure class="figure">
+                <img src="~/images/hash_table/ht_image_02.png" alt="A chef adds hash table ingredients to a pot" class="figure-img img-fluid rounded" />
+                <figcaption class="figure-caption text-subtle">Much like with cooking, choosing the right ingredients for your Hash Table is critical.</figcaption>
+            </figure>
+        </div>
+    </div>
+</div>
+
+<div class="container py-md-4">
+    <div class="chapter-section">
+        <h4 class="section-title">Open Addressing</h4>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="definition-callout">
+                <h5>Definition: Open Addressing</h5>
+                <p>
+                    Open Addressing is a type of collision resolution strategy that resolves collisions by choosing a different location when the deterministic choice
+                    is already full. If the output index from the hash function points to a bucket that is already occupied, the system will <strong>probe</strong> the table
+                    to find the next open address.
+                </p>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <p>
+                With open addressing conflict resolution, the buckets available in the hash table are open to any data. This ensures that, even if the index generated
+                by the hash function is occupied, the data being stored will still find a place in the hash table. This convenience comes with some strings attached, though.
+                We must be able to replicate the probing path used to find the new address. If the path selection isn't deterministic, we can't retrieve the data. Additionally,
+                the probing technique should avoid putting lots of keys close together. It should also make use of all available spaces in the table.
+            </p>
+            <p>
+                It turns out that meeting these design goals isn't as simple as it may seem. Some methods of probing are great at finding open buckets, but they can also
+                create clusters of data. <strong>Clustering</strong> is when a group of data points are all close together in the hash table. This can make it difficult to find open buckets
+                when the table is full since the probing method will have to check each bucket in the cluster before it can find an open bucket. Other methods may do well at minimizing
+                clustering of data, but fail to provide proper <strong>table coverage</strong>, leaving some buckets unused. Let's explore some common collision resolution techniques.
+
+            </p>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="container py-md-4">
+    <div class="chapter-section">
+        <h4 class="section-title">Linear Probing</h4>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            <div>
+                <p>
+                    Linear probing is a simple and effective method of collision resolution. When a collision occurs, the system will check the next bucket in the table. To find the next bucket,
+                    the system will add a constant value to the index generated by the hash function. This constant value is called the <strong>step size</strong>. If that bucket is also occupied,
+                    it will check the next one, and so on. This continues until an open bucket is found. The process is deterministic, meaning that the same input will always produce the same output.
+                    This makes it easy to find the data again later.
+                </p>
+                <p>
+                    Imagine you show up for class and walk to your usual seat, only to find that someone is already sitting there. You decided to take the next available seat instead. So, you check
+                    the next seat (also full), and the one after that (full again), and finally find a seat open toward the end of the row. You couldn't sit in <em>your</em> seat, but you were able
+                    to find a seat that you could use.
+                </p>
+                <p>
+                    While the process is straight forward, we still need to see how it performs against our design goals. Linear Probing will always select the next available bucket in the case
+                    of a collision, so it uses the whole table. However, it can lead to clustering if all the data points are close together. With linear probing, we can expect clusters in the size of O(lg<em>n</em>).
+                </p>
+                <div class="row py-2">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                        <h3>This is bad. But, how bad, really?</h3>
+                    </div>
+                    <div class="col-md-2"></div>
+                </div>
+                <div class="info-callout py-md-4">
+                    <h6>Linear Probing - Average Probes</h6>
+                    <p>
+                        As the hash table fills up, we expect keys to cause collisions at a higher rate. We can calculate unsuccessful searches vs successful searches at each value of λ where λ <= 1.
+                    </p>
+                    <h6>An unsuccessful search is calculated as <sup>1</sup>/<sub>2 </sub>[1 + <sup>1</sup>/<sub>(1-λ)<sup>2</sup></sub>]<br /></h6>
+                    <h6>A successful search is calculated as <sup>1</sup>/<sub>2 </sub>[1 + <sup>1</sup>/<sub>(1-λ)</sub>]<br /></h6>
+                    <p>
+                        Notice the unsuccessful search grows <strong>exponentially</strong>, meaning the odds of each probe causing a collision grow very large as λ 1.
+                        We'll discuss what to do when the load factor gets to high in a later chapter.
+                    </p>
+                    <figure class="figure">
+                        <img src="~/images/hash_table/lp_avg_probes.png" alt="Example of linear probing collision resolution" class="figure-img img-fluid rounded" />
+                    </figure>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="info-callout h-100 d-flex justify-content-center align-items-center">
+                <div class="rounded p-3 h-100 align-middle" style="background: white;">
+                    <h6 class="text-primary ">Linear Probing Technique</h6>
+                    <ol class="text-primary">
+                        <li>Start by applying the hash function to the key to generate an index.</li>
+                        <li>In the case of a collision, add one to the index and check again.</li>
+                        <li>If incrementing the index would exceed the bounds of the table, reset index to 0.</li>
+                        <li>Repeat until an empty bucket is found.</li>
+                    </ol>
+                    <code>
+                        index = h(key) % |T|;<br />
+                        while (index is <strong>not</strong> empty) {<br />
+                        &nbsp;&nbsp;try (h(key) + i) % |T|)<br />
+                        }
+                    </code>
+                    <br /><hr style="border: 4px solid var(--primary); color: var(--primary);" /><br />
+                    <img src="~/images/hash_table/lp_example.png" alt="Example of linear probing collision resolution" class="figure-img img-fluid rounded" />
+                    <p class="text-primary py-2">
+                        The collisions are resolved by checking the next bucket according to the step value.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row py-md-3">
+        <div class="col-md-12">
+            <figure class="figure">
+                <img src="~/images/hash_table/ht_image_03.png" alt="A student can't find a seat due to clustering." class="figure-img img-fluid rounded" />
+                <figcaption class="figure-caption text-subtle">If elements in a hash table cluster, adding new data can become more difficult.</figcaption>
+            </figure>
+        </div>
+    </div>
+</div>
+
+<h4>Exercise 1: Linear Probing</h4>
+<p>Create an array to function as your hashtable that adds keys linearly when it reaches a collision.  Start with values of 5, 25, 15, 35, 45 and place them into a hash table of capacity 10 that is initialized with a -1 for an empty spot.  Print the array.</p>
+<!-- Embed the dynamic IDE Partial -->
+@await Html.PartialAsync("Shared/_IDEPartial", initialCode2)
+
+<h4>Exercise 2: Search for a Key</h4>
+<p>Create a function to search your hashtable for a specific key.  Print whether the key is found.</p>
+<!-- Embed the dynamic IDE Partial -->
+@await Html.PartialAsync("Shared/_IDEPartial", initialCode3)
+
+
+
+<div class="container py-md-4">
+    <div class="chapter-section">
+        <h4 class="section-title">Quadratic Probing</h4>
+    </div>
+    <div class="row py-2">
+        <div class="col-md-12">
+            <p>
+                The cluster tendency of Linear Probing is due to the simple way the technique solves for collisions. Since each conflict is just solved by adding
+                the step size and trying again, any time a collision would occur in one part of the table, it likely fills up nearby areas in quick order. This
+                is called <strong>primary clustering</strong>, where keys frquently hash near each other. <strong>Quadratic Probing</strong> attempts to solve
+                for this by using a slightly more complex equation to determine where to look following a collision.
+            </p>
+        </div>
+    </div>
+    <div class="row py-2">
+        <div class="col-md-6">
+            <div class="info-callout">
+                <div class="rounded p-3 h-100 align-middle" style="background: white;">
+                    <h6 class="text-primary">
+                        Quadratic Probing Technique<br />
+                        <small>h(key) = The original index from the hash function<br /></small>
+                        <small>i = Number of probes launched (or number of attempts)<br /></small>
+                        <small>c<sub>1</sub>, c<sub>2</sub> = Constants to determine step size<br /></small>
+                        <small>|T| = The size of the hash table<br /></small>
+                    </h6>
+                    <code>
+                        index = [h(key) + (c<sub>1</sub> &#215; i) + (c<sub>2</sub> &#215; i<sup>2</sup>)] % |T|
+                    </code>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <p>
+                Quadratic probing uses a quadratic function to determine the next index to check. The step size is determined by the number of probes launched (i) and two constants (c1 and c2). The
+                constants are used to determine how quickly the step size increases. The larger the constants, the faster the step size increases. This means that the system will check buckets further
+                away from the original index more quickly. Since the step size is variable, the issue of repeated clustered collisions from linear probing is diminished.
+            </p>
+        </div>
+    </div>
+    <div class="row py-2">
+        <div class="col-md-7">
+            <p>
+                So, quadratic probing is less likely to cause primary clustering, but how does it do against our design goals? Unfortunately, this technique is prone to a different problem. Depending
+                on our selection of constants, there is a chance that not every number within the range of index values will be reachable. If a value is not in the range of the selected probing function,
+                meaning that no possible combination of variables produces that value as a solution, the associated bucket index can never be selected. Not only does this mean that some buckets may be
+                ignored completely, but that in some situations, a key may not be able to find an available bucket regardless of open space. <strong><em class="small">YIKES!</em></strong>
+            </p>
+        </div>
+        <div class="col-md-5">
+            <div class="danger-callout">
+                <p>
+                    <h5 class="text-center">CAUTION</h5> Quadratic functions grow quickly. The step size can be difficult to visualize beyond the 4<sup>th</sup> step.
+                    Choose your values for c<sub>1</sub> and c<sub>2</sub> based on your data set and table size.
+                </p>
+
+            </div>
+        </div>
+    </div>
+    <div class="row py-4">
+        <div class="col-md-12">
+            <div class="info-callout">
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                        <h2 class="text-center">index = [h(key) + (c<sub>1</sub> &#215; i) + (c<sub>2</sub> &#215; i<sup>2</sup>)] % |T|</h2>
+                        <h5 class="text-center">where c<sub>1</sub> = 1, c<sub>2</sub> = 4, |T| = 10, and i starts at 0</h5>
+                    </div>
+                    <div class="col-md-2"></div>
+                </div>
+                <img src="~/images/hash_table/qp_example.png" alt="Example of a quadratic probing sequence." class="figure-img img-fluid rounded" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<h4>Exercise 2: Quadratic Probing</h4>
+<p>
+    Create an array to function as your hashtable that adds keys with Quadratic Probing when it reaches a collision. Start with key values of 11, 20, 16, 3, 53, 99, and 28.  Use  t = (hv + (j + j * j) / 2) % tablesize for your quadratic hash function.  Print the array.
+</p>
+<!-- Embed the dynamic IDE Partial -->
+@await Html.PartialAsync("Shared/_IDEPartial", initialCode)
+
+<div class="container py-md-4">
+    <div class="chapter-section">
+        <h4 class="section-title">Double Hashing</h4>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <img src="~/images/hash_table/ht_image_04.png" alt="Double Hashing passes the key from h1 to h2" class="figure-img img-fluid rounded" style="background: var(--background-light);" />
+        </div>
+    </div>
+    <div class="row py-2">
+        <div class="col-md-12">
+            <p>
+                To address both clustering and table coverage, we can instead implement a <strong>Double Hashing</strong> technique to select our probe sequence. As the name implies, this technique hashes the key
+                twice, using two different hash functions. The first, h<sub>1</sub>, is used just like in other techniques. By using the key as input, h<sub>1</sub> generates an output in the range of our hash table
+                that we can use as the initial index. The second hash function, h<sub>2</sub>, is used to generate our step size. This means that instead of using one uniform method to determine our step, the step size
+                is varied based on the key we're probing, which provides some benefits as we add data to the hash table.
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="info-callout">
+                <div class="rounded p-3 h-100 align-middle text-black" style="background: white;">
+                    <h5>Design Criteria For h<sub>2</sub>:</h5>
+                    <ul>
+                        <li>It should never output an index of zero.</li>
+                        <li>It should cycle through the whole table.</li>
+                        <li>It should be very fast to compute.</li>
+                        <li>It should be pair-wise independent of h<sub>1</sub>(<em>key</em>).</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <p>
+                For any given key, the probe step size is variable. This will help to prevent the chain collision issue the linear probing, where a collision would create a predictable sequence of occupied buckets, not
+                unlike a traffic jam. In double hashing implementations, since the step size isn't fixed, the first collision doesn't inevitably cause more the next time that index is probed. This also helps to ensure
+                proper table coverage. Since the step sizes are variable, it is less likely (but not impossible!) that index values will be unreachable and thus wasted. That's great news! Is this a perfect solution!?
+            </p>
+        </div>
+    </div>
+    <div class="row py-2">
+        <div class="col-md-12">
+            <p>
+                As you probably guessed, no, double hashing is not a silver bullet against all collision resolution issues. Firstly, the function used for h<sub>2</sub> needs to meet some additional critera beyond what
+                h<sub>1</sub> requires. The output of h<sub>2</sub> should never be 0. If we generate a step size of zero, a collision will just continue to check the same bucket. This takes the "resolution" out of
+                collision resolution entriely. Value output by h<sub>2</sub> should also cycle the whole table. As noted above, this is less troublesome than with a quadratic function, but still requires design with
+                the range of the hash table. Often this can be solved by using primes for the hash functions to avoid infinite loops and ensure the steps touch all available buckets. Additionally, h<sub>2</sub> should
+                be pair-wise independent of h<sub>1</sub>, meaning that any two random keys in the set have a relatively small probability of yielding the same values for both functions.
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-7">
+            <p>
+                None of that seems <em>too</em> bad. So why don't we just use double hashing all the time? Well, it's in the name: double hashing requires double the number of neccessary calculations needed for any given
+                probe. Caclulating values for h<sub>2</sub> needs to be very fast in order to limit this performace loss. So, think about the above criteria for h<sub>2</sub> again, but now think about fulfilling all those
+                design goals with a simple and fast calculation. This implementation complexity and additional overhead is what prevents double hashing from being a cure-all.
+            </p>
+        </div>
+        <div class="col-md-5">
+            <div class="container">
+                <code class="fs-6">
+                    <em>p, q</em> are prime numbers where 2 < <em>p</em> < <em>q</em><br />
+                </code>
+                <code class="fs-2">
+                    h<sub>1</sub>(<em>key</em>) = <em>key</em> % <em>p</em><br />
+                    h<sub>2</sub>(<em>key</em>) = <em>q</em> - (<em>key</em> % <em>q</em>)<br />
+                </code>
+                <figcaption class="fs-6">An example double hash implementation</figcaption>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h4>Exercise 4: Double Hashing</h4>
+<p>Create an array to function as your hashtable that using double hashing to place keys.  Use key%tablesize for your first hash function and 7-key%7 for your second hash function.  Then use them to place values of 12, 25, 35, 36, 82, 98, 48, 58, 68, and 78 in a table of size 10.  
+@await Html.PartialAsync("Shared/_IDEPartial", initialCode5)
+
+<h2>Review of Main Ideas</h2>
+
+    <!-- <p> From https://www.multiplechoicequestions.org/data-structures/mcq-on-hash-tables/</p> -->
+@await Html.PartialAsync("Shared/_QuizPartial", Model.Question)

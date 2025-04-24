@@ -1,0 +1,78 @@
+﻿@model IList<NebulaTextbook.Models.Question>
+
+<style>
+    h2 {
+        text-align: center;
+    }
+
+</style>
+@{
+    //variables to label the questions
+    int problemNum = 0;
+    int groupNum = 0;
+    string Message = "";
+
+}
+
+&nbsp;
+&nbsp;
+
+<!--add the questions one at a time to the quiz-->
+<form method="post">
+
+    @foreach (var item in Model)
+    {
+        <!--Increment the problem numbers and groupNumber for each problem-->
+        problemNum = problemNum + 1;
+        groupNum = groupNum + 1;
+
+
+        <div class="container my-5">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <table class="table quiz-block">
+                        <thead>
+                            <tr>
+                                <th class="quiz-question">@problemNum @Html.Raw(@item.QuestionText)</th>
+                            </tr>
+                        </thead>
+                        <tr>
+                            <td>
+                                <input id="option1" type="radio" name=@groupNum class="rb quiz-answer" value="@item.Answer1" style="margin-left: 35px;" />&nbsp;&nbsp;@Html.Raw(@item.Answer1)<br />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input id="option2" type="radio" name=@groupNum class="rb quiz-answer" value="@item.Answer2" style="margin-left: 35px;" />&nbsp;&nbsp;@Html.Raw(@item.Answer2)<br />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input id="option3" type="radio" name=@groupNum class="rb quiz-answer" value="@item.Answer3" style="margin-left: 35px;" />&nbsp;&nbsp;@Html.Raw(@item.Answer3)<br />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input id="option4" type="radio" name=@groupNum class="rb quiz-answer" value="@item.Answer4" style="margin-left: 35px;" />&nbsp;&nbsp;@Html.Raw(@item.Answer4)<br />
+                            </td>
+                    </table>
+                    <p id="correctAnswer" name="correctAnswer" class="rb" style="visibility: hidden; color: purple; font: bold">@Html.Raw(@item.CorrectAnswer)</p>
+                    <label id="CorrectAnswer" name="@item.QuestionID" class="rb quiz-correct" style="visibility: hidden; color: purple; font: bold; font-size:larger;"> Correct Answer: @Html.Raw(@item.CorrectAnswer)</label>
+                   
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+        </div>
+
+    }
+
+    <button id="answer" type="submit" value="submit" class="btn-success" onclick="displayresults()">Submit</button>
+</form>
+
+<!--Label to display the score-->
+<label id="correct" name="correct" style="color: white; height: 20px; margin-bottom: 30px; margin-left: 400px;font-size: xx-large;">@Message</label>
+
+<!--Add the script file that controls displaying score and correct answers-->
+<script src="/js/quiz.js" defer></script>
+

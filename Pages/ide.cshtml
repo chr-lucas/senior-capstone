@@ -1,0 +1,43 @@
+﻿@page
+@model NebulaTextbook.Pages.IdeModel
+
+@{
+    ViewData["Title"] = "C++ Code Editor";
+
+    // Set the initial code snippet for the C++ editor
+    string initialCode = @"#include <iostream>
+ using namespace std;
+
+ // TODO: Implement this function
+ void reverseArray(int arr[], int size) {
+     // Implement logic here
+ }
+
+ void printArray(int arr[], int size) {
+     for (int i = 0; i < size; ++i)
+         cout << arr[i] << "" "";
+     cout << endl;
+ }
+
+ int main() {
+     int arr[] = {1, 3, 5, 7, 9};
+     int size = sizeof(arr) / sizeof(arr[0]);
+
+     cout << ""Original array: "";
+     printArray(arr, size);
+
+     reverseArray(arr, size);
+
+     cout << ""Reversed array: "";
+     printArray(arr, size);
+
+     return 0;
+ }";
+}
+
+<h2>C++ Code Editor Preview</h2>
+<h4>Exercise: Reverse an Array</h4>
+
+<!-- Embed the dynamic IDE Partial -->
+@await Html.PartialAsync("Shared/_IDEPartial", initialCode)
+

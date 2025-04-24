@@ -1,0 +1,47 @@
+﻿@* Partial View for Reusable C++ Code Editor *@
+
+@model string
+
+<div class="cpp-ide-container">
+    <div id="editor" class="ace-editor">@Html.Raw(Model.Replace("<", "&lt;").Replace(">", "&gt;"))</div>
+
+    <div class="ide-controls">
+        <div class="left-controls">
+            <label for="compiler">Select Compiler:</label>
+            <select class="compiler-selector">
+                <option value="g++">g++ (Server-side)</option>
+                <option value="emscripten-server">Emscripten (Server-side)</option>
+                <option value="wandbox">Wandbox (Cloud)</option>
+            </select>
+
+            <div class="wandbox-compiler-container" style="display: none;">
+                <label for="wandboxCompiler">Wandbox:</label>
+                <select class="wandbox-compiler-selector">
+                    <option value="gcc-head">GCC Head</option>
+                    <option value="clang-head">Clang Head</option>
+                    <option value="gcc-13.2.0">GCC 13.2.0</option>
+                    <option value="clang-15.0.7">Clang 15.0.7</option>
+                    <option value="clang-14.0.6">Clang 14.0.6</option>
+                </select>
+            </div>
+
+            <button class="run-code-btn">Run Code</button>
+        </div>
+
+        <div class="font-size-controls">
+            <span class="fontSizeText">Font Size:</span>
+            <button class="btn decreaseFont">-</button>
+            <span class="fontSizeDisplay">14px</span>
+            <button class="btn increaseFont">+</button>
+        </div>
+
+    </div>
+
+
+    <h4 style="margin-top: 1rem;">Output:</h4>
+    <pre class="output-container"></pre>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.14/ace.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.14/ext-language_tools.js"></script>
+<script src="/js/ide.js" defer></script>

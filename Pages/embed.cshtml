@@ -1,0 +1,24 @@
+﻿@page
+@model NebulaTextbook.Pages.EmbedVideoModel
+@{
+    ViewData["Title"] = "Embedded Video";
+    
+}
+
+@* Get paths from database. *@
+<h1>Video</h1>
+
+<p hidden>@Model.GetVideo("Test Video")</p>
+<video id="my-video" controls controlsList="nodownload" poster="@Url.Content(string.Format("~/{0}", Model.thumbnailPath))" width="640" height="360">
+    <source src="@Url.Content(string.Format("~/{0}", Model.filePath))" type="video/mp4" />
+    No Video File Accessible
+</video>
+
+
+@* <video id="my-video" class="video-js vjs-default-skin" controls controlsList="nodownload" poster="@Url.Content("~/images/chapter_title_example.png")" width="640" height="360" data-setup="{}">
+    <source src="@Url.Content("~/Bunny.mp4")" type="video/mp4" />
+    <p class="vjs-no-js">
+        To view this video please enable JavaScript, and consider upgrading to a
+        web browser that <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+    </p>
+</video> *@

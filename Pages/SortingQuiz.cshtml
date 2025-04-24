@@ -1,0 +1,176 @@
+﻿@page
+@model NebulaTextbook.Pages.SortingQuizModel
+
+
+@{
+    ViewData["Title"] = "Sorting Quiz";
+    //    var insertQuery = "INSERT INTO Question(QuestionText, Answer1, Answer2, Answer3, Answer4, QuizID, CorrectAnswer) VALUES('Which of the following does not have a worst-case time complexity of O(POWER(n,2)', 'Merge Sort', 'Quick Sort', 'Selection Sort', 'Bubble Sort', '2', 'Merge Sort')";
+}
+
+@{
+
+    int problemNum = 0;
+    int groupNum = 0;
+    string Message = "";
+
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <h2>Sorting Quiz</h2>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>
+
+
+<form method="post">
+
+    @foreach (var item in Model.Question)
+    {
+        problemNum = problemNum + 1;
+        groupNum = groupNum + 1;
+
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                        <table class="table quiz-block">
+                            <thead>
+                                <tr>
+                                    <th class="quiz-question">
+                                    <span id="question">@problemNum. @Html.Raw(@item.QuestionText):&nbsp;&nbsp;</span>
+                                        <span class="question-reveal d-none">(Correct Answer: @item.CorrectAnswer)</span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tr>
+                                <td>
+                                <input id="option1" type="radio" name=@groupNum class="rb quiz-answer" value="@item.Answer1" style="margin-left: 35px;" />&nbsp;&nbsp;@Html.Raw(@item.Answer1)<br />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                <input id="option2" type="radio" name=@groupNum class="rb quiz-answer" value="@item.Answer2" style="margin-left: 35px;" />&nbsp;&nbsp;@Html.Raw(@item.Answer2)<br />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                <input id="option3" type="radio" name=@groupNum class="rb quiz-answer" value="@item.Answer3" style="margin-left: 35px;" />&nbsp;&nbsp;@Html.Raw(@item.Answer3)<br />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                <input id="option4" type="radio" name=@groupNum class="rb quiz-answer" value="@item.Answer4" style="margin-left: 35px;" />&nbsp;&nbsp;@Html.Raw(@item.Answer4)<br />
+                                </td>
+                        </table>
+                    <p id="CorrectAnswer" name="@item.QuestionID" class="rb d-none">@Html.Raw(@item.CorrectAnswer)</p>
+                    <label id="CorrectAnswer" name="@item.QuestionID" class="rb d-none" style="visibility:hidden;">@Html.Raw(@item.CorrectAnswer)</label>
+                    </div>
+                <div class="col-md-2"></div>
+            </div>
+        </div>
+           
+     }
+ 
+     <div class="container my-auto">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-1">
+                <button id="answer" type="submit" value="submit" class="btn btn-primary btn-lg" onclick="displayresults(event)">Submit</button>
+            </div>
+            <div class="col-md-9"></div>
+        </div>
+    </div>
+</form>
+
+<div class="container my-auto">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-10">
+            <label id="lbluseranswer"></label>
+            <label id="correct" name="correct" class="quiz-score-text">@Message</label>
+        </div>
+    </div>
+</div>
+
+<!-- Quiz Results Modal -->
+<div class="modal fade" id="quizResultsModal" tabindex="-1" aria-labelledby="quizResultsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="quizResultsModalLabel">Quiz Results</h5>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p id="quiz-score-text"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+
+    function displayresults(event){
+         event.preventDefault(); // Prevent form submission
+
+        var numberCorrect = 0;
+        var choices = []; 
+        var answer = [];
+        var score = 0
+
+        var result = document.getElementsByTagName('input');
+        
+        for(i=0; i<result.length; i++){
+
+            if (result[i].checked){
+                choices.push(result[i].value);
+            }
+        }
+
+      
+        var answers = document.getElementsByTagName('label');
+        var rightChoice = document.getElementsByTagName('p');
+
+        for(k=0; k<rightChoice.length; k++){
+            answer.push(rightChoice[k].value);
+
+        }
+      
+        /*for(j = 0; j< answers.length; j++){
+            answer.push(answers[j].innerText);
+
+        }*/
+
+        for( m = 0; m< choices.length; m++){
+        if(rightChoice[m].innerHTML == choices[m]){
+            numberCorrect = numberCorrect+1;
+        }
+        }
+
+        score = ((numberCorrect)/4)*100;
+       
+        const answerTextTags = document.getElementsByClassName("question-reveal");
+        for (let i = 0; i < answerTextTags.length; i++) {
+            answerTextTags[i].classList.remove("d-none");
+        }
+
+        document.getElementById("quiz-score-text").innerHTML = `Your score is: ${score}%`;
+        var modal = new bootstrap.Modal(document.getElementById('quizResultsModal'));
+        modal.show();
+
+        for(m = 0; m < answer.length; m++){
+             answers[m].style.visibility = "visible";
+
+        }
+                                                                                                                                                                                                                                                                                                                                                                                    
+    }
+</script>
